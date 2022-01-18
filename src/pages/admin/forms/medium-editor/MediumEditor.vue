@@ -9,7 +9,12 @@
       <h1>Status Report :</h1>
     </div>
     <div class="editor-control">
-      <QuillEditor theme="snow" />
+      <QuillEditor 
+       ref="myQuillEditor"
+       v-model="content"
+       @ready="onEditorReady($event)"
+       @change="onEditorChange($event)"
+       theme="snow" />
     </div>
     <div class="container">
       <label class="label-control" for="Name">User Name:</label>
@@ -111,106 +116,22 @@
       </datalist>
       <span>Enter comma seperated additional tags. eg. vue.js, javascript, cpp</span>
     </div>
-    <!-- <div class="row">
-      <div class="flex md12">
-        <div class="row">
-          <va-input
-            v-model="userName"
-            label="User Name"
-          >
-          </va-input>
-          <va-input
-            v-model="nextFriday"
-            label="Date"
-          >
-          </va-input>
-        </div>
-        <va-card>
-          <va-card-title>{{ $t("forms.mediumEditor.title") }}</va-card-title>
-          <va-card-content class="d-flex flex-center">
-            <va-medium-editor @initialized="handleEditorInitialization">
-              <h1>Select Text To Open Editor</h1>
-
-              <p>
-                You enter into your favorite local bar looking
-                <span class="default-selection"><b>good</b></span> as hell, but
-                you know the only heads you want to turn—spicy & stylish alpha
-                bitches — are heavily fixated on the D. The hot girl talks to
-                you, but she only wants to be your best friend. Her
-                nonthreatening and attentive best friend. Receiver of sexy
-                selfies, listener of stories. Meanwhile, you attract unwanted
-                attention from straight men, pudgy and greasy moths to your
-                emotionally distant flame.
-              </p>
-
-              <p>
-                Read the full article on
-                <a
-                  href="https://medium.com/@dorn.anna/girl-no-you-dont-2e21e826c62c"
-                >Medium</a
-                >
-              </p>
-            </va-medium-editor>
-          </va-card-content>
-        </va-card>
-        <div class="flex md6 xs12">
-          <label>Dev Team:</label>
-          <input type="text" class="input-control" name="devTeam" v-model="input.name" />
-          <label>Scrum Team:</label>
-          <input type="text"/>
-          <label>Desktop/Cloud:</label>
-          <input type="text"/>
-          <label>Pune/HSV:</label>
-          <input type="text"/>
-          <label>Manager:</label>
-          <input type="text"/>
-          <va-select
-            label="Dev Team"
-            v-model="devTeam"
-            textBy="description"
-            track-by="id"
-            :options="devTeams"
-          />
-          <va-select
-            label="Scrum Team"
-            v-model="scrumTeam"
-            textBy="description"
-            track-by="id"
-            :options="scrumTeams"
-          />
-          <va-select
-            label="Desktop/Cloud"
-            v-model="desktopOrCloud"
-            textBy="description"
-            track-by="id"
-            :options="desktopCloud"
-          />
-          <va-select
-            label="Pune/HSV"
-            v-model="location"
-            textBy="description"
-            track-by="id"
-            :options="locations"
-          />
-          <va-select
-            label="Manager"
-            v-model="manager"
-            textBy="description"
-            track-by="id"
-            :options="managers"
-          />
-        </div>
-      </div>
-    </div> -->
+    <div>
+     <button class="button" @click="submitData">Submit</button>
+     </div>
   </div>
 </template>
 
 <script>
+
 // import VaMediumEditor from "@/components/va-medium-editor/va-medium-editor";
 // import axios from "axios";
-import { QuillEditor } from '@vueup/vue-quill'
+import { QuillEditor, Quill } from '@vueup/vue-quill'
 import '@vueup/vue-quill/dist/vue-quill.snow.css';
-
+import axios from 'axios';
+var quill = new Quill('#editor', {
+    theme: 'snow'
+});
 export default {
   components: {
     QuillEditor
@@ -225,37 +146,56 @@ export default {
       userName: '',
       domain: '',
       tags: '',
-      previewImage: './profile_photo.jpg',
-      userNames: [
-        'Rishikesh','Kshitij','Abhijit'
-      ],
-      scrumTeamNames: ['Avegers', 'Autobots'],
+      editor: '',
+      previewImage: null,
+      userNames: [],
+      scrumTeamNames: [],
       devTeamNames: [],
       domainNames: [],
       locationNames: [],
       managerNames: [],
-      additionTags: []
+      additionTags: [],
+      content: '',
+      //  quill : Quill
+
     };
   },
 
   computed: {
+    
     getMondayDate() {
-      // const monday = new Date();
-      // monday.setDate(
-      //   monday.getDate() + ((((7 - monday.getDay()) % 7) + 1) % 7)
-      // );
-      // return monday.toDateString();
       const today = new Date();
       const day = today.getDay() || 7; // Get current day number, converting Sun. to 7
-      // Only manipulate the date if it isn't Mon.
       if( day !== 1 ) {
         today.setHours(-24 * (day - 1));
       }            
       return today.toDateString();
     },
+
+     editor() {
+       console.log('this.$refs.myQuillEditor.quill----',this.$refs.myQuillEditor.quill);
+        return this.$refs.myQuillEditor.quill
+      }
   },
 
+ mounted() {
+      console.log('this is current quill instance object', this.editor);
+      this.getUniqueFilters();
+    },
+
   methods: {
+    getUniqueFilters() {
+      axios.get('http://localhost:3000/v1/users/getUniqueFilters').then(response => {
+        this.scrumTeamNames = Object.freeze(response.data.scrumTeam);
+        this.devTeamNames = Object.freeze(response.data.devTeam);
+        this.managerNames = Object.freeze(response.data.manager);
+      })
+    },
+     onEditorReady(quill) {
+        console.log('editor ready!', quill)
+        this.content = quill;
+      },
+
     uploadImage(e){
         console.log(this.window);
         const image = e.target.files[0];
@@ -277,6 +217,43 @@ export default {
         document.getElementsByClassName("default-selection")[0];
       this.editor.selectElement(sampleText);
     },
+
+    submitData(){
+      // var editor_content = quill.container.innerHTML
+      // console.log('text-----',Quill.getHTML());
+      // console.log('document.getElementsByClassName-----',document.getElementsByClassName('ql-editor ql-blank'));
+      // console.log('this.$refs.myQuillEditor.quill-----',this.$refs.myQuillEditor.quill);
+       console.log('text1111-----',this.content.container.innerHTML);
+      let data = {
+        //img: this.previewImage,
+        name: this.userName,
+        scrumTeam: this.scrumTeam,
+        devTeam: this.devTeam,
+        teamType:this.domain,
+        location: this.location,
+        manager: this.managerName,
+        tags: this.tags,
+        reportContent: this.content.container.innerHTML,
+      }
+      axios.post('http://localhost:3000/v1/auth/register', data).then(response => 
+      {
+        console.log('response-----', response);
+        this.clearAll();
+        this.getUniqueFilters();
+      });
+      
+    },
+    clearAll() {
+      this.devTeam =  '';
+      this.scrumTeam =  '';
+      this.location =  '';
+      this.managerName =  '';
+      this.userName = '';
+      this.domain =  '';
+      this.tags = '';
+      this.editor = '';
+      this.content =  '';
+    }
   },
 };
 </script>
