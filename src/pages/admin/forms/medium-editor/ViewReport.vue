@@ -3,55 +3,49 @@
     <div class="row">
       <div class="flex xs12">
         <div class="row">
-          <div class="flex md4 sm6 xs12">
+          <div class="filter-control">
             <input
               type="text"
               class="input-control"
               id="devTeam"
               list="devTeams"
               v-model="devTeam"
-              placeholder="DEV TEAM"
+              placeholder="Dev Team"
             />
             <datalist id="devTeams">
               <option v-for="(value, key) in devTeams" :key="key">
                 {{ value.description }}
               </option>
             </datalist>
-          </div>
 
-          <div class="flex md4 sm6 xs12">
             <input
               type="text"
               class="input-control"
               id="ScrumTeam"
               list="scrumTeams"
               v-model="SelectedscrumTeams"
-              placeholder="SCRUM TEAM"
+              placeholder="Scrum Team"
             />
             <datalist id="scrumTeams">
               <option v-for="(value, key) in scrumTeams" :key="key">
                 {{ value.name }}
               </option>
             </datalist>
-          </div>
 
-          <div class="flex md4 sm6 xs12">
             <input
               type="text"
               class="input-control"
               id="team"
               list="Options"
               v-model="SelectedTeam"
-              placeholder="DESKTOP/CLOUD"
+              placeholder="Desktop/Cloud"
             />
             <datalist id="Options">
               <option v-for="(value, key) in Options" :key="key">
                 {{ value.name }}
               </option>
             </datalist>
-          </div>
 
-          <div class="flex md4 sm6 xs12">
             <input
               type="text"
               class="input-control"
@@ -65,9 +59,7 @@
                 {{ value.name }}
               </option>
             </datalist>
-          </div>
 
-          <div class="flex md4 sm6 xs12">
             <input
               type="text"
               class="input-control"
@@ -81,9 +73,9 @@
                 {{ value.name }}
               </option>
             </datalist>
-          </div>
 
-          <div class="flex md4 sm6 xs12">
+          </div>
+          <div class="submit-control">
             <button class="button" @click="submitData">Submit</button>
           </div>
         </div>
@@ -92,7 +84,7 @@
   </div>
   <div class="card">
     <div class="cards-container row d-flex wrap align--start">
-      <div class="flex xs12">
+      <div class="flex xs12 card-header-control">
         <label><b>STATUS REPORT</b></label>
       </div>
     </div>
@@ -109,7 +101,7 @@ export default {
       SelectedLocations: [],
       SelectedManager: [],
       selected: "A",
-      devTeam: '',
+      devTeam: "",
       devTeams: [
         {
           id: 1,
@@ -185,9 +177,10 @@ export default {
  <style lang="scss">
 .input-control {
   padding: 4px;
-  margin: 10px 25px;
+  margin: 10px 5px;
   border-radius: 4px;
-  width: 400px;
+  width: 250px;
+  box-shadow: 4px 6px 5px grey;
 }
 
 .label-control {
@@ -221,13 +214,13 @@ export default {
 }
 
 .row {
-//   background-image: url("https://source.unsplash.com/user/erondu/1600x600.jpg");
+  //   background-image: url("https://source.unsplash.com/user/erondu/1600x600.jpg");
   background-repeat: no-repeat;
   background-size: cover;
 }
 
 .button {
-  background-color: blue;
+  background-color: gray;
   border: none;
   color: white;
   padding: 15px 32px;
@@ -239,7 +232,14 @@ export default {
   cursor: pointer;
   border-radius: 28px;
 }
-
+.card-header-control{
+    margin-top: 10px;
+}
+.filter-control {
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(5, auto);
+}
 .container1 {
   margin-top: 50px;
 
@@ -248,14 +248,22 @@ export default {
   align-items: center;
 }
 
+.submit-control{
+    text-align: end;
+    width: 100%;
+}   
+
 .card {
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 4px 6px 5px grey;
+  background-color: rgb(233, 232, 232);
+  border: 2px solid grey;
+  border-radius: 4px;
   max-width: 100%;
   margin: auto;
   text-align: center;
   font-family: arial;
   margin-top: 50px;
-//   background-image: url("https://source.unsplash.com/user/erondu/1600x600");
+  //   background-image: url("https://source.unsplash.com/user/erondu/1600x600");
   background-repeat: no-repeat;
   background-size: cover;
   height: 481px;
