@@ -9,7 +9,7 @@ import UIRoute from '@/pages/admin/ui/route'
 const routes: Array<RouteRecordRaw> = [
   {
     path: "/:catchAll(.*)",
-    redirect: { name: 'dashboard' },
+    redirect: { name: 'home_page' },
   },
   {
     name: 'admin',
@@ -17,42 +17,14 @@ const routes: Array<RouteRecordRaw> = [
     component: AppLayout,
     children: [
       {
-        name: 'dashboard',
-        path: 'dashboard',
-        component: () => import('@/pages/admin/dashboard/Dashboard.vue'),
+        name: 'home_page',
+        path: 'home_page',
+        component: () => import('@/pages/admin/forms/medium-editor/MediumEditor.vue'),
       },
       {
-        name: 'reports',
-        path: 'reports',
-        component: () => import('@/components/status-report/Reports.vue'),
-      },
-      {
-        name: 'reports1',
-        path: 'reports1',
-        component: () => import('@/components/status-report/Reports1.vue'),
-      },
-      {
-        name: 'statistics',
-        path: 'statistics',
-        component: RouteViewComponent,
-        children: [
-          {
-            name: 'charts',
-            path: 'charts',
-            component: () => import('@/pages/admin/statistics/charts/Charts.vue'),
-            meta: {
-              wikiLink: 'https://github.com/epicmaxco/vuestic-admin/wiki/Charts',
-            },
-          },
-          {
-            name: 'progress-bars',
-            path: 'progress-bars',
-            component: () => import('@/pages/admin/statistics/progress-bars/ProgressBars.vue'),
-            meta: {
-              wikiLink: 'https://github.com/epicmaxco/vuestic-admin/wiki/Progress-Bars',
-            },
-          },
-        ],
+        name: 'view_report',
+        path: 'view_report',
+        component: () => import('@/pages/admin/forms/medium-editor/ViewReport.vue'),
       },
       {
         name: 'forms',

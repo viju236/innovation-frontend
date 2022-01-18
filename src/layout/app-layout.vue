@@ -2,7 +2,7 @@
   <div class="app-layout">
     <navbar />
     <div class="app-layout__content">
-      <div class="app-layout__sidebar-wrapper" :class="{ minimized: isSidebarMinimized }">
+      <!-- <div class="app-layout__sidebar-wrapper" :class="{ minimized: isSidebarMinimized }">
         <div v-if="isFullScreenSidebar" class="d-flex justify--end">
           <va-button
             class="px-4 py-4"
@@ -17,7 +17,7 @@
           :minimized="isSidebarMinimized" 
           :minimizedWidth="sidebarMinimizedWidth"
         />
-      </div>
+      </div> -->
       <div class="app-layout__page">
         <div class="layout fluid gutter--xl">
           <router-view/>
@@ -31,7 +31,6 @@
 import { useStore } from 'vuex';
 import { computed, onBeforeUnmount, onMounted, ref } from 'vue';
 import { onBeforeRouteUpdate } from 'vue-router';
-import Sidebar from '@/components/sidebar/Sidebar';
 import Navbar from '@/components/navbar/Navbar.vue';
 
 
@@ -39,7 +38,7 @@ export default {
   name: 'app-layout',
 
   components: {
-    Navbar, Sidebar
+    Navbar
   },
 
   setup() {   
@@ -113,6 +112,7 @@ $tabletBreakPointPX: 768px;
     display: flex;
     height: calc(100vh - 4rem);
     flex: 1;
+    overflow: auto;
 
     @media screen and (max-width: $tabletBreakPointPX) {
       height: calc(100vh - 6.5rem);

@@ -293,6 +293,8 @@
     "persian": "Persian"
   },
   "menu": {
+    "viewReport": "View Report",
+    "homePage": "Home Page",
     "auth": "Auth",
     "rating": "Rating",
     "buttons": "Buttons",

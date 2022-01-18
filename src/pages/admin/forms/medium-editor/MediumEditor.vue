@@ -1,9 +1,12 @@
 <template>
   <div class="medium-editor">
-    <h1>Status Report for the week of {{ getMondayDate }}</h1>
-    <div class="image-control">
-      <img class="imagePreview" :src="previewImage" alt="DP" />
-      <input type="file" accept="image/jpeg" @change=uploadImage>
+    <div class="header-control">
+      <h1 class="header">Week - {{ getMondayDate }}</h1>
+      <div class="image-control">
+        <img class="imagePreview" :src="previewImage" alt="DP" />
+        <input type="file" accept="image/jpeg" @change=uploadImage>
+      </div>
+      <h1>Status Report :</h1>
     </div>
     <div class="editor-control">
       <QuillEditor theme="snow" />
@@ -22,11 +25,7 @@
           {{ value }}
         </option>
       </datalist>
-      <div/>
-      <!-- <div>
-        <img class="imagePreview" :src="previewImage" alt="DP" />
-        <input type="file" accept="image/jpeg" @change=uploadImage>
-      </div> -->
+      <span>Enter user name. eg. Rishikesh Dhobale</span>
       <label class="label-control" for="ScrumTeam">Scrum Team:</label>
       <input
         type="text"
@@ -226,7 +225,7 @@ export default {
       userName: '',
       domain: '',
       tags: '',
-      previewImage: null,
+      previewImage: './profile_photo.jpg',
       userNames: [
         'Rishikesh','Kshitij','Abhijit'
       ],
@@ -241,11 +240,18 @@ export default {
 
   computed: {
     getMondayDate() {
-      const monday = new Date();
-      monday.setDate(
-        monday.getDate() + ((((7 - monday.getDay()) % 7) + 1) % 7)
-      );
-      return monday;
+      // const monday = new Date();
+      // monday.setDate(
+      //   monday.getDate() + ((((7 - monday.getDay()) % 7) + 1) % 7)
+      // );
+      // return monday.toDateString();
+      const today = new Date();
+      const day = today.getDay() || 7; // Get current day number, converting Sun. to 7
+      // Only manipulate the date if it isn't Mon.
+      if( day !== 1 ) {
+        today.setHours(-24 * (day - 1));
+      }            
+      return today.toDateString();
     },
   },
 
@@ -257,7 +263,6 @@ export default {
         reader.readAsDataURL(image);
         reader.onload = e =>{
             this.previewImage = e.target.result;
-            console.log(this.previewImage);
         };
     },
     handleEditorInitialization(editor) {
@@ -276,6 +281,10 @@ export default {
 };
 </script>
 <style lang="scss">
+.header{
+  font-size: 40px;
+}
+
 .input-control {
   padding: 4px;
   margin: 10px 25px;
@@ -309,7 +318,11 @@ export default {
 
 .image-control{
   position: relative;
-  top: 10px;
-  right: 2px;
+  text-align: end;
+}
+
+.header-control{
+  display: grid;
+  grid-template-columns: auto auto;
 }
 </style>
