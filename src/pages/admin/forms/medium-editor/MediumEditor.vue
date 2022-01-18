@@ -4,17 +4,18 @@
       <h1 class="header">Week - {{ getMondayDate }}</h1>
       <div class="image-control">
         <img class="imagePreview" :src="previewImage" alt="DP" />
-        <input type="file" accept="image/jpeg" @change=uploadImage>
+        <label for="files">Select Image</label>
+        <input type="file" id="files" style="visibility:hidden;" accept="image/jpeg" @change=uploadImage>
       </div>
-      <h1>Status Report :</h1>
     </div>
+    <h1>Status Report -</h1>
     <div class="editor-control">
       <QuillEditor 
-       ref="myQuillEditor"
-       v-model="content"
-       @ready="onEditorReady($event)"
-       @change="onEditorChange($event)"
-       theme="snow" />
+        ref="myQuillEditor"
+        v-model="content"
+        @ready="onEditorReady($event)"
+        @change="onEditorChange($event)"
+        theme="snow" />
     </div>
     <div class="container">
       <label class="label-control" for="Name">User Name:</label>
@@ -117,8 +118,8 @@
       <span>Enter comma seperated additional tags. eg. vue.js, javascript, cpp</span>
     </div>
     <div>
-     <button class="button" @click="submitData">Submit</button>
-     </div>
+      <button class="button" @click="submitData">Submit</button>
+    </div>
   </div>
 </template>
 
@@ -147,7 +148,7 @@ export default {
       domain: '',
       tags: '',
       editor: '',
-      previewImage: null,
+      previewImage: "file:///D:/Innovation2022/innovation-frontend/src/pages/admin/forms/medium-editor/profile_photo.jpg",
       userNames: [],
       scrumTeamNames: [],
       devTeamNames: [],
@@ -162,7 +163,7 @@ export default {
   },
 
   computed: {
-    
+
     getMondayDate() {
       const today = new Date();
       const day = today.getDay() || 7; // Get current day number, converting Sun. to 7
@@ -171,11 +172,10 @@ export default {
       }            
       return today.toDateString();
     },
-
-     editor() {
-       console.log('this.$refs.myQuillEditor.quill----',this.$refs.myQuillEditor.quill);
-        return this.$refs.myQuillEditor.quill
-      }
+    editor() {
+      console.log('this.$refs.myQuillEditor.quill----',this.$refs.myQuillEditor.quill);
+      return this.$refs.myQuillEditor.quill
+    }
   },
 
  mounted() {
@@ -217,7 +217,6 @@ export default {
         document.getElementsByClassName("default-selection")[0];
       this.editor.selectElement(sampleText);
     },
-
     submitData(){
       // var editor_content = quill.container.innerHTML
       // console.log('text-----',Quill.getHTML());
@@ -277,7 +276,7 @@ export default {
   margin-top: 50px;
   display: grid;
   width: 100%;
-  grid-template-columns: 135px auto auto;
+  grid-template-columns: 150px auto auto;
   // grid-template-columns: repeat(3, auto);
   align-items: center;
 }
@@ -289,7 +288,7 @@ export default {
 }
 
 .editor-control{
-  margin-top: 30px;
+  margin-top: 5px;
   height: 300px;
 }
 
@@ -301,5 +300,6 @@ export default {
 .header-control{
   display: grid;
   grid-template-columns: auto auto;
+  margin-bottom: 10px;
 }
 </style>
