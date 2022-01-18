@@ -1,10 +1,14 @@
 <template>
   <div class="medium-editor">
+  <div style= "padding-left: 700px;">
+      <button class="button" @click="submitData">Save Changes</button>
+    </div>
     <div class="header-control">
       <h1 class="header">Week - {{ getMondayDate }}</h1>
+
       <div class="image-control">
         <img class="imagePreview" :src="previewImage" alt="DP" />
-        <label for="files">Select Image</label>
+        <label for="files"><b>Select Image</b></label>
         <input type="file" id="files" style="visibility:hidden;" accept="image/jpeg" @change=uploadImage>
       </div>
     </div>
@@ -18,7 +22,7 @@
         theme="snow" />
     </div>
     <div class="container">
-      <label class="label-control" for="Name">User Name:</label>
+      <label class="label-control" for="Name"><b>User Name:</b></label>
       <input
         type="text"
         class="input-control"
@@ -31,8 +35,8 @@
           {{ value }}
         </option>
       </datalist>
-      <span>Enter user name. eg. Rishikesh Dhobale</span>
-      <label class="label-control" for="ScrumTeam">Scrum Team:</label>
+      <span><i><b>Enter user name. eg. Rishikesh Dhobale</b></i></span>
+      <label class="label-control" for="ScrumTeam"><b>Scrum Team:</b></label>
       <input
         type="text"
         class="input-control"
@@ -45,8 +49,8 @@
           {{ value }}
         </option>
       </datalist>
-      <span>Enter scrum team name. eg. Avengers</span>
-      <label for="DevTeam">Development Team:</label>
+      <span><i><b>Enter scrum team name. eg. Avengers</b></i></span>
+      <label for="DevTeam"><b>Development Team:</b></label>
       <input
         type="text"
         class="input-control"
@@ -59,8 +63,8 @@
           {{ value }}
         </option>
       </datalist>
-      <span>Enter development team name. eg. SE IND DEV1</span>
-      <label for="Domain">Desktop/Cloud:</label>
+      <span><i><b>Enter development team name. eg. SE IND DEV1</b></i></span>
+      <label for="Domain"><b>Desktop/Cloud:</b></label>
       <input
         type="text"
         class="input-control"
@@ -73,8 +77,8 @@
           {{ value }}
         </option>
       </datalist>
-      <span>Enter domain name. eg. Desktop or Cloud</span>
-      <label for="Location">Pune/HSV:</label>
+      <span><i><b>Enter domain name. eg. Desktop or Cloud</b></i></span>
+      <label for="Location"><b>Pune/HSV:</b></label>
       <input
         type="text"
         class="input-control"
@@ -87,8 +91,8 @@
           {{ value }}
         </option>
       </datalist>
-      <span>Enter location. eg. Pune or Huntsville</span>
-      <label for="ManagerName">Manager Name:</label>
+      <span><i><b>Enter location. eg. Pune or Huntsville</b></i></span>
+      <label for="ManagerName"><b>Manager Name:</b></label>
       <input
         type="text"
         class="input-control"
@@ -101,8 +105,8 @@
           {{ value }}
         </option>
       </datalist>
-      <span>Enter manager name. First name and last name eg. Ninad Kulkarni</span>
-      <label for="AdditionalTag">Additional Tags:</label>
+      <span><i><b>Enter manager name. First name and last name eg. Ninad Kulkarni</b></i></span>
+      <label for="AdditionalTag"><b>Additional Tags:</b></label>
       <input
         type="text"
         class="input-control"
@@ -115,11 +119,9 @@
           {{ value }}
         </option>
       </datalist>
-      <span>Enter comma seperated additional tags. eg. vue.js, javascript, cpp</span>
+      <span><i><b>Enter comma seperated additional tags. eg. vue.js, javascript, cpp</b></i></span>
     </div>
-    <div>
-      <button class="button" @click="submitData">Submit</button>
-    </div>
+    
   </div>
 </template>
 
@@ -257,6 +259,12 @@ export default {
 };
 </script>
 <style lang="scss">
+
+// .medium-editor{
+// background-image: url('report5.jpg');
+// background-repeat: no-repeat;
+//     background-size: cover;
+// }
 .header{
   font-size: 40px;
 }
@@ -290,6 +298,7 @@ export default {
 .editor-control{
   margin-top: 5px;
   height: 300px;
+  background-color: white;
 }
 
 .image-control{
@@ -302,4 +311,22 @@ export default {
   grid-template-columns: auto auto;
   margin-bottom: 10px;
 }
+
+.ql-toolbar.ql-snow + .ql-container.ql-snow {
+background-color: white;
+}
+
+.button {
+     background-color: blue;
+     border: none;
+     color: white;
+     padding: 15px 32px;
+     text-align: center;
+     text-decoration: none;
+     display: inline-block;
+     font-size: 16px;
+     margin: 4px 2px;
+     cursor: pointer;
+     border-radius: 28px;
+   }
 </style>

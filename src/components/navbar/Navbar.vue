@@ -21,7 +21,7 @@ export default {
 
 <style lang="scss" scoped>
 #navBar {
-  background-color: lightgray;
+  background-color: lightskyblue;
 }
 
 #navBar ul {
@@ -41,10 +41,6 @@ export default {
   color: black;
 }
 
-#navBar li:hover {
-  background-color: gray;
-  border-radius: 4px;
-}
 
 #navBar #searchBox {
   float: right;

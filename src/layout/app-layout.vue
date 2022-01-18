@@ -101,6 +101,9 @@ $mobileBreakPointPX: 640px;
 $tabletBreakPointPX: 768px;
 
 .app-layout {
+  background-image: url('report5.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
   height: 100vh;
   display: flex;
   flex-direction: column;

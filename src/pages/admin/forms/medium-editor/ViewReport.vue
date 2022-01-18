@@ -255,7 +255,7 @@ export default {
 
 .card {
   box-shadow: 4px 6px 5px grey;
-  background-color: rgb(233, 232, 232);
+  background-color: white;
   border: 2px solid grey;
   border-radius: 4px;
   max-width: 100%;
