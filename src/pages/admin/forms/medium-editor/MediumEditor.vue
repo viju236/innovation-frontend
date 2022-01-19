@@ -224,7 +224,13 @@ export default {
       // console.log('text-----',Quill.getHTML());
       // console.log('document.getElementsByClassName-----',document.getElementsByClassName('ql-editor ql-blank'));
       // console.log('this.$refs.myQuillEditor.quill-----',this.$refs.myQuillEditor.quill);
-       console.log('text1111-----',this.content.container.innerHTML);
+      debugger;
+      //console.log(this.$refs.myQuillEditor.quill);
+      //this.content.container.innerHTML.find('div:first').remove();
+
+      //console.log('text1111-----',this.content.container.innerHTML);
+      //this.content.container.remove(this.content.container.firstChild);
+      console.log('text1111-----',this.content.container.firstChild.innerHTML);
       let data = {
         //img: this.previewImage,
         name: this.userName,
@@ -234,7 +240,7 @@ export default {
         location: this.location,
         manager: this.managerName,
         tags: this.tags,
-        reportContent: this.content.container.innerHTML,
+        reportContent: this.content.container.firstChild.innerHTML,
       }
       axios.post('http://localhost:3000/v1/auth/register', data).then(response => 
       {
