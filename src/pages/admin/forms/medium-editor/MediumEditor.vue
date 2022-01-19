@@ -224,12 +224,6 @@ export default {
       // console.log('text-----',Quill.getHTML());
       // console.log('document.getElementsByClassName-----',document.getElementsByClassName('ql-editor ql-blank'));
       // console.log('this.$refs.myQuillEditor.quill-----',this.$refs.myQuillEditor.quill);
-      debugger;
-      //console.log(this.$refs.myQuillEditor.quill);
-      //this.content.container.innerHTML.find('div:first').remove();
-
-      //console.log('text1111-----',this.content.container.innerHTML);
-      //this.content.container.remove(this.content.container.firstChild);
       console.log('text1111-----',this.content.container.firstChild.innerHTML);
       let data = {
         //img: this.previewImage,
